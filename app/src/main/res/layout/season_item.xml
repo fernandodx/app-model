@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="150dp"
+        android:layout_height="190dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+
+        <ImageView
+            android:id="@+id/thumbImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="@drawable/background_label"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/episodes_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="12 Episódios" />
+
+        <TextView
+            android:id="@+id/label_season_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/text_color_accent_light"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/episodes_textview"
+            app:layout_constraintEnd_toEndOf="@+id/episodes_textview"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            tools:text="1˚ Temporada" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

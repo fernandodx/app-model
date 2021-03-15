@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="150dp"
+        android:layout_height="190dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
+
+        <ImageView
+            android:id="@+id/thumbImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@drawable/background_label"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/background_label"
+            android:rotation="180"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/thumbImageView" />
+
+        <TextView
+            android:id="@+id/name_serie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="center"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/episodes_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="@+id/thumbImageView"
+            tools:text="Nome Serie" />
+
+        <TextView
+            android:id="@+id/episodes_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textColor="@color/text_color_accent_light"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/name_serie"
+            app:layout_constraintStart_toStartOf="@+id/name_serie"
+            tools:text="Temporada 1 | EP 23" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/label_channel_textview"
+            app:layout_constraintEnd_toStartOf="@+id/label_channel_textview"
+            app:layout_constraintTop_toTopOf="@+id/label_channel_textview"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/label_channel_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/text_color"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/name_serie"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Disney Channel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
