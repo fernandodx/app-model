@@ -21,7 +21,7 @@
 
     <!-- Seach Series Fragment -->
     <string name="msg_error_">Ops! Não foi salvar sua série favorita, tente novamente mais tarde.</string>
-    <string name="msg_error_find_series">Ops! Ocorreu um erro ao buscar as séries. Tente novamente mais tarde.</string>
+    <string name="msg_error_find_series">Ops! Ocorreu um erro ao buscar as séries. Verifique sua conexão e tente novamente.</string>
     <string name="msg_error_find_series_not_found">Ops! Não encontramos nenhuma série com esse nome.</string>
     <string name="label_title_search_serie">Encontre sua série</string>
 
