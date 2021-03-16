@@ -3,17 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/serieDetailFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="br.com.diasdeseries.ui.DashboardFragment"
-        android:label="@string/label_dashboard"
-        tools:layout="@layout/dashboard_fragment" />
+        android:label="@string/label_title_dashboard"
+        tools:layout="@layout/dashboard_fragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_serieDetailFragment"
+            app:destination="@id/serieDetailFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_seachSerieListFragment"
+            app:destination="@id/seachSerieListFragment" />
+    </fragment>
 
 
     <fragment
         android:id="@+id/serieDetailFragment"
-        android:name="br.com.diasdeseries.ui.SerieDetailFragment"
-        android:label="SerieDetailFragment" />
+        android:name="br.com.diasdeseries.ui.DetailSerieFragment"
+        android:label="@string/label_title_detail" >
+        <argument
+            android:name="idSerieTv"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_serieDetailFragment_to_listEpisodesFragment"
+            app:destination="@id/listEpisodesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listEpisodesFragment"
+        android:name="br.com.diasdeseries.ui.ListEpisodesFragment"
+        android:label="@string/label_title_list_episodes" >
+        <argument
+            android:name="idSerieTv"
+            app:argType="integer" />
+        <argument android:name="numberSeason"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/seachSerieListFragment"
+        android:name="br.com.diasdeseries.ui.SeachSerieListFragment"
+        android:label="@string/label_title_search_serie" >
+        <action
+            android:id="@+id/action_seachSerieListFragment_to_serieDetailFragment"
+            app:destination="@id/serieDetailFragment" />
+    </fragment>
 </navigation>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/cardview_dark_background">
+
+        <ImageView
+            android:id="@+id/thumbImageView"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/detail_episode_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thumbImageView"
+            tools:text="Detalhes do episódios"
+            android:textColor="@color/text_color"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/name_episode_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/thumbImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nome do episódio"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/label_detail_episode_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@+id/name_episode_textview"
+            app:layout_constraintTop_toBottomOf="@+id/name_episode_textview"
+            tools:text="5. Episódio 12"
+            android:textColor="@color/text_color"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

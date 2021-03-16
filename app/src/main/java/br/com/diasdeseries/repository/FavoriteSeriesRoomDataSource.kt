@@ -8,12 +8,12 @@ class FavoriteSeriesRoomDataSource(
 ) : FavoriteSeriesRepository {
 
     override suspend fun insertFavoriteSeries(
-        idSerieTv: Int,
-        nameSerie: String,
-        banner: String,
-        thumb: String,
-        rating: Double,
-        countSeason: Int
+        idSerieTv: Int?,
+        nameSerie: String?,
+        banner: String?,
+        thumb: String?,
+        rating: Double?,
+        countSeason: Int?
     ): Long {
         val favoriteSeriesEntity = FavoriteSeriesEntity(
             idSerieTv = idSerieTv,
@@ -34,7 +34,15 @@ class FavoriteSeriesRoomDataSource(
         favoriteSeriesDAO.delete(id)
     }
 
-    override suspend fun getAllFavoriteSeries(): List<FavoriteSeriesEntity> {
+    override suspend fun getAllFavoriteSeries(): List<FavoriteSeriesEntity>? {
         return favoriteSeriesDAO.getAll()
+    }
+
+    override suspend fun getFavoriteSerieWithIdSerieTv(idSerieTv: Int): FavoriteSeriesEntity? {
+        return favoriteSeriesDAO.getFavoriteSerieWithIdSerieTv(idSerieTv)
+    }
+
+    override suspend fun deleteFavoriteSeriesWithIdSerieTv(id: Int) {
+        return favoriteSeriesDAO.deleteFavoriteSeriesWithIdSerieTv(id)
     }
 }

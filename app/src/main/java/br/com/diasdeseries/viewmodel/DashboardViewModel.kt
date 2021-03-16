@@ -28,31 +28,15 @@ class DashboardViewModel(
     val messageErrorLiveData : LiveData<Int>
         get() = messageErrorMutableLiveData
 
+    private val isShowLoadingMutableLiveData = MutableLiveData<Boolean>()
+    val isShowLoadingLiveData : LiveData<Boolean>
+        get() = isShowLoadingMutableLiveData
 
-
-    fun getSeriesWithName(name: String) = viewModelScope.launch {
-
-        try {
-
-            val series = seriesTvRepository.findSeriesWithName(name)
-
-//            if(series.isNullOrEmpty()){
-//                listSeriesMutableLiveData.value = Result.failure(Throwable())
-//                messageErrorMutableLiveData.value = R.string.msg_error_none_serie
-//            }else{
-//                listSeriesMutableLiveData.value = Result.success(series)
-//            }
-
-        }catch (e: Exception) {
-            Log.e(TAG, e.localizedMessage)
-            messageErrorMutableLiveData.value = R.string.msg_error_find_series
-        }
-    }
 
     fun getSeriesNow() = viewModelScope.launch {
 
         try {
-
+            isShowLoadingMutableLiveData.value = true
             val series = seriesTvRepository.getSeriesNow()
 
             if(series.isNullOrEmpty()){
@@ -65,6 +49,8 @@ class DashboardViewModel(
         }catch (e : Exception){
             Log.e(TAG, e.localizedMessage)
             messageErrorMutableLiveData.value = R.string.msg_error_find_series
+        }finally {
+            isShowLoadingMutableLiveData.value = false
         }
     }
 

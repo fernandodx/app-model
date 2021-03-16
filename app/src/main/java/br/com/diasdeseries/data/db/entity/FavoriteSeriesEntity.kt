@@ -10,11 +10,11 @@ data class FavoriteSeriesEntity (
 
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val idSerieTv : Int,
-    val nameSerie : String,
-    val banner : String,
-    val thumb : String,
-    val rating : Double,
-    val countSeason : Int
+    val idSerieTv : Int?,
+    val nameSerie : String?,
+    val banner : String?,
+    val thumb : String?,
+    val rating : Double?,
+    val countSeason : Int?
 
 )

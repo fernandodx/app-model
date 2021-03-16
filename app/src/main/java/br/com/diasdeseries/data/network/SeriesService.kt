@@ -25,5 +25,8 @@ interface SeriesService {
     @GET("/shows/{id}/seasons")
     suspend fun getSeasonsWithId(@Path("id") id: Int) : List<SeasonSerieData>
 
+    @GET("/shows")
+    suspend fun findAllSeriesWithPage(@Query("page") page : Int) : List<SerieData.Show>
+
 
 }

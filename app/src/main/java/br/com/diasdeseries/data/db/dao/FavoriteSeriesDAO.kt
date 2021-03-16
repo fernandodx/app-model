@@ -1,6 +1,5 @@
 package br.com.diasdeseries.data.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -19,7 +18,13 @@ interface FavoriteSeriesDAO {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM favorite_series")
-    suspend fun getAll() : List<FavoriteSeriesEntity>
+    suspend fun getAll() : List<FavoriteSeriesEntity>?
+
+    @Query("SELECT * FROM favorite_series WHERE idSerieTv = :idSerieTv")
+    suspend fun getFavoriteSerieWithIdSerieTv(idSerieTv: Int): FavoriteSeriesEntity?
+
+    @Query("DELETE FROM favorite_series WHERE idSerieTv = :idSerieTv")
+    suspend fun deleteFavoriteSeriesWithIdSerieTv(idSerieTv: Int)
 
 
 }

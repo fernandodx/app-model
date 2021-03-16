@@ -15,7 +15,6 @@ import br.com.diasdeseries.repository.FavoriteSeriesRepository
 
 class DetailSerieViewModel(
     private val seriesTvRepository: SeriesTvRepository,
-    private val favoriteSeriesRepository: FavoriteSeriesRepository
 ) : ViewModel() {
 
     companion object {
@@ -26,24 +25,30 @@ class DetailSerieViewModel(
     val detailSerieLiveData: LiveData<Result<DetailSerieData>>
         get() = detailSerieMutableLiveData
 
-    private val favoriteSerieMutableLiveData = MutableLiveData<Result<List<FavoriteSeriesEntity>>>()
-    val favoriteSerieLiveData: LiveData<Result<List<FavoriteSeriesEntity>>>
-        get() = favoriteSerieMutableLiveData
+    private val episodesSerieMutableLiveData = MutableLiveData<Result<List<EpisodesSerieData>>>()
+    val episodeSerieLiveData: LiveData<Result<List<EpisodesSerieData>>>
+        get() = episodesSerieMutableLiveData
 
     private val messageErrorMutableLiveData = MutableLiveData<Int>()
     val messageErrorLiveData: LiveData<Int>
         get() = messageErrorMutableLiveData
 
+    private val isShowLoadingMutableLiveData = MutableLiveData<Boolean>()
+    val isShowLoadingLiveData : LiveData<Boolean>
+        get() = isShowLoadingMutableLiveData
+
     fun getDetailSerieWithId(id: Int) = viewModelScope.launch {
 
         try {
+
+            isShowLoadingMutableLiveData.value = true
 
             val detail = seriesTvRepository.getDetailSerieWithId(id)
             val images = seriesTvRepository.getImagesWithId(id)
             val seasons = seriesTvRepository.getSeasonsWithId(id)
             val episodes = seriesTvRepository.getEpisodesWithId(id)
 
-            //MELHORAR
+
             images.forEach { imageData ->
                 if ("banner".equals(imageData.type) || "background".equals(imageData.type)) {
                     detail.banner = imageData.resolutions?.original?.url ?: ""
@@ -52,55 +57,38 @@ class DetailSerieViewModel(
 
             val listCoverEpisodes = mutableListOf<EpisodesSerieData>()
             seasons.forEach { season ->
-                episodes.forEach { episode ->
-                    if (episode.season == season.number && episode.number == 1) {
-                        episode.countEpisodes = season.episodeOrder
-                        listCoverEpisodes.add(episode)
-                    }
-                }
+                val episodesSeason = episodes.filter { it.season == season.number }
+                val firstEpisode = episodesSeason[0]
+                firstEpisode.countEpisodes = episodesSeason.size
+                listCoverEpisodes.add(firstEpisode)
             }
 
             detail.listaCoverEpisodes = listCoverEpisodes
-
             detailSerieMutableLiveData.value = Result.success(detail)
 
         } catch (e: Exception) {
             Log.e(TAG, e.localizedMessage)
             messageErrorMutableLiveData.value = R.string.msg_error_detail_serie
-
+        }finally {
+            isShowLoadingMutableLiveData.value = false
         }
     }
 
-    fun addFavoriteSerie(
-        idSerieTv: Int,
-        nameSerie: String,
-        banner: String,
-        thumb: String,
-        rating: Double,
-        countSeason: Int
-    ) = viewModelScope.launch {
-
+    fun getDetailEpisodesWithIdAndSeason(id: Int, numberSeason: Int) = viewModelScope.launch {
         try {
-            val id = favoriteSeriesRepository.insertFavoriteSeries(
-                idSerieTv,
-                nameSerie,
-                banner,
-                thumb,
-                rating,
-                countSeason
-            )
-
-            if(id > 0){
-                val listFavoriteSeries = favoriteSeriesRepository.getAllFavoriteSeries()
-                favoriteSerieMutableLiveData.value = Result.success(listFavoriteSeries)
-            }
-
-        } catch (e: Exception) {
+            isShowLoadingMutableLiveData.value = true
+            val episodes = seriesTvRepository.getEpisodesWithId(id)
+            val filterEpisodes = episodes.filter { it.season == numberSeason }
+            episodesSerieMutableLiveData.value = Result.success(filterEpisodes)
+        }catch (e : Exception){
             Log.e(TAG, e.localizedMessage)
-            messageErrorMutableLiveData.value = R.string.msg_error_favorite_save_serie
+            messageErrorMutableLiveData.value = R.string.msg_error_list_episodes
+        }finally {
+            isShowLoadingMutableLiveData.value = false
         }
-
     }
+
+
 
 
 }

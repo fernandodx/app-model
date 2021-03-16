@@ -16,7 +16,7 @@ import com.squareup.picasso.Transformation
 import br.com.diasdeseries.databinding.SeasonItemBinding
 
 
-class SeasonAdapter : RecyclerView.Adapter<SeasonAdapter.SeriesViewHolder>() {
+class SeasonAdapter(private val onClickEpisodes : (EpisodesSerieData) -> Unit) : RecyclerView.Adapter<SeasonAdapter.SeriesViewHolder>() {
 
     private var list: List<EpisodesSerieData> = emptyList()
     private lateinit var context : Context
@@ -46,6 +46,10 @@ class SeasonAdapter : RecyclerView.Adapter<SeasonAdapter.SeriesViewHolder>() {
                     .error(R.drawable.ic_launcher_background)
                     .into(it.thumbImageView)
             }
+        }
+
+        holder.itemView.setOnClickListener {
+            onClickEpisodes.invoke(serie)
         }
 
     }

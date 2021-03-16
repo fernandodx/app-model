@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 
-fun AppCompatActivity.hideKeyboard() {
+
+fun FragmentActivity.hideKeyboard() {
     val view = this.currentFocus
     if(view != null){
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -13,3 +15,4 @@ fun AppCompatActivity.hideKeyboard() {
     }
     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 }
+

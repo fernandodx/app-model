@@ -18,5 +18,7 @@ interface SeriesTvRepository {
 
     suspend fun getSeasonsWithId(id: Int) : List<SeasonSerieData>
 
+    suspend fun findAllSeriesWithPagination(page : Int) : List<SerieData.Show>
+
 
 }

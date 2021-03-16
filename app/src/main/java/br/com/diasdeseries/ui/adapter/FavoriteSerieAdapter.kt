@@ -10,16 +10,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.diasdeseries.R
-import br.com.diasdeseries.data.pojo.SerieData
-import br.com.diasdeseries.data.pojo.SerieNowData
-import br.com.diasdeseries.databinding.SerieItemBinding
+import br.com.diasdeseries.data.db.entity.FavoriteSeriesEntity
+import br.com.diasdeseries.data.pojo.EpisodesSerieData
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
+import br.com.diasdeseries.databinding.SeasonItemBinding
 
 
-class SeriesAdapter(private val onClickSerie : (SerieNowData) -> Unit) : RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder>() {
+class FavoriteSerieAdapter(private val onClickFavorite : (FavoriteSeriesEntity) -> Unit) : RecyclerView.Adapter<FavoriteSerieAdapter.SeriesViewHolder>() {
 
-    private var list: List<SerieNowData> = emptyList()
+    private var list: List<FavoriteSeriesEntity> = emptyList()
     private lateinit var context : Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesViewHolder {
@@ -27,24 +27,22 @@ class SeriesAdapter(private val onClickSerie : (SerieNowData) -> Unit) : Recycle
         return SeriesViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.serie_item, parent, false)
+                .inflate(R.layout.favorite_serie_item, parent, false)
         )
     }
 
     @SuppressLint("StringFormatMatches")
     override fun onBindViewHolder(holder: SeriesViewHolder, position: Int) {
 
-        val serie :SerieNowData = list[position]
+        val favorite :FavoriteSeriesEntity = list[position]
 
         holder.viewHolderBinding?.let {
-            it.nameSerie.text = serie.show?.name
-            it.thumbImageView.setImageResource(R.drawable.ic_launcher_foreground)
-            it.labelChannelTextview.text = "${serie.show?.network?.name} | ${serie.airtime}h"
-            it.episodesTextview.text =  context.getString(R.string.label_season_episode, serie.season.toString(), serie.number)
+            it.nameFavoriteTextview.text = favorite.nameSerie
+            it.ratingTextview.text = "Nota: ${favorite.rating}"
 
-            serie.show?.image?.let { image ->
+            favorite.banner.let { image ->
                Picasso.get()
-                    .load(Uri.parse(image.original))
+                    .load(Uri.parse(image))
                     .transform(RoundedTransformation(16, 8))
                     .error(R.drawable.ic_launcher_background)
                     .into(it.thumbImageView)
@@ -52,7 +50,7 @@ class SeriesAdapter(private val onClickSerie : (SerieNowData) -> Unit) : Recycle
         }
 
         holder.itemView.setOnClickListener {
-            onClickSerie.invoke(serie)
+            onClickFavorite.invoke(favorite)
         }
 
     }
@@ -61,15 +59,16 @@ class SeriesAdapter(private val onClickSerie : (SerieNowData) -> Unit) : Recycle
         return list.size
     }
 
-    fun updateSeries(listNew: List<SerieNowData>) {
+    fun updateListFavorite(listNew: List<FavoriteSeriesEntity>) {
         this.list = listNew
         notifyDataSetChanged()
     }
 
     inner class SeriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val viewHolderBinding = DataBindingUtil.bind<SerieItemBinding>(itemView)
+        val viewHolderBinding = DataBindingUtil.bind<br.com.diasdeseries.databinding.FavoriteSerieItemBinding>(itemView)
     }
 
+    //Melhorar
     class RoundedTransformation(
         private val radius: Int, // dp
         private val margin: Int
@@ -99,27 +98,5 @@ class SeriesAdapter(private val onClickSerie : (SerieNowData) -> Unit) : Recycle
         }
 
     }
-
-    fun getRoundedCornerBitmap(bitmap: Bitmap): Bitmap? {
-        val output = Bitmap.createBitmap(
-            bitmap.width,
-            bitmap.height, Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(output)
-        val color = -0xbdbdbe
-        val paint = Paint()
-        val rect = Rect(0, 0, bitmap.width, bitmap.height)
-        val rectF = RectF(rect)
-        val roundPx = 100f
-        paint.isAntiAlias = true
-        canvas.drawARGB(0, 0, 0, 0)
-        paint.color = color
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint)
-        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(bitmap, rect, rect, paint)
-        return output
-    }
-
-
 
 }

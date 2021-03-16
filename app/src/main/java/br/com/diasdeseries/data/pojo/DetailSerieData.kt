@@ -66,8 +66,7 @@ class DetailSerieData {
     var banner: String? = null
 
     @JsonIgnore
-    var listaCoverEpisodes:List<EpisodesSerieData>? = null
-
+    var listaCoverEpisodes: List<EpisodesSerieData>? = null
 
 
 }

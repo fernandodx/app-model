@@ -2,17 +2,34 @@
     <!-- Dashboard Fragment -->
     <string name="app_name">Dias de Series</string>
     <string name="label_series_now">Em exibição hoje</string>
-    <string name="label_dashboard">Dashboard</string>
+    <string name="label_title_dashboard">Dashboard</string>
+    <string name="label_title_detail">Detalhes</string>
     <string name="msg_error_insert_favorite_serie">Ops! Ocorreu um erro ao salvar sua serie favorita, tente novamente mais tarde.</string>
-    <string name="msg_error_find_series">Ops! Ocorreu um erro ao buscar as séries. Tente novamente mais tarde.</string>
+    <string name="msg_error_find_series_favorite">Ops! Ocorreu um erro ao buscar suas séries favoritas. Tente novamente mais tarde.</string>
     <string name="msg_error_none_serie">Ops! Não encontramos nenhuma série.</string>
     <string name="label_season_episode">"Temporada %s | EP %s</string>
+    <string name="label_not_found_favorite">Ainda sem nenhuma série favorita</string>
 
     <!-- Detail Fragment -->
     <string name="msg_error_detail_serie">Ops! Não foi possível detalhar a série</string>
     <string name="msg_error_favorite_save_serie">Ops! Não foi salvar sua série favorita, tente novamente mais tarde.</string>
+    <string name="msg_error_favorite_remove_serie">Ops! Não foi remover sua série favorita, tente novamente mais tarde.</string>
+    <string name="msg_error_list_episodes">Ops! Não foi possível encontrar episódios para a sua série.</string>
     <string name="label_season_detail">"%s˚ Temporada</string>
     <string name="label_episode_detail">"%s Episódios</string>
+    <string name="label_title_list_episodes">Episódios</string>
+
+    <!-- Seach Series Fragment -->
+    <string name="msg_error_">Ops! Não foi salvar sua série favorita, tente novamente mais tarde.</string>
+    <string name="msg_error_find_series">Ops! Ocorreu um erro ao buscar as séries. Tente novamente mais tarde.</string>
+    <string name="msg_error_find_series_not_found">Ops! Não encontramos nenhuma série com esse nome.</string>
+    <string name="label_title_search_serie">Encontre sua série</string>
+
+
+    <string name="url_get_flag">https://www.countryflags.io/%s/flat/64.png</string>
+    <string name="label_remove_favorite">Remover dos Favoritos</string>
+    <string name="label_add_favorite">Adicionar aos Favoritos</string>
+
 
 
 </resources>

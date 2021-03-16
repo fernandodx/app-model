@@ -28,4 +28,8 @@ class SeriesTvRepositoryImpl : SeriesTvRepository {
     override suspend fun getSeasonsWithId(id: Int): List<SeasonSerieData> {
         return RetrofitUtil.getSeriesServices().getSeasonsWithId(id)
     }
+
+    override suspend fun findAllSeriesWithPagination(page: Int): List<SerieData.Show> {
+        return RetrofitUtil.getSeriesServices().findAllSeriesWithPage(page)
+    }
 }
