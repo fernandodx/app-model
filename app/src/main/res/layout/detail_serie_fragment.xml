@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/cardview_dark_background">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -28,6 +29,7 @@
                 android:scaleType="centerCrop" />
 
             <View
+                android:id="@+id/view3"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:background="@drawable/background_label"
@@ -189,24 +191,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/chip_group_genre" />
 
-
             <FrameLayout
                 android:id="@+id/view_loading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@color/background_loading"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:indeterminate="true"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:indeterminate="true" />
 
             </FrameLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     </androidx.core.widget.NestedScrollView>
