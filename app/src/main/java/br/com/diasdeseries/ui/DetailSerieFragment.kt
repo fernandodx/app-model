@@ -1,5 +1,6 @@
 package br.com.diasdeseries.ui
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.diasdeseries.MainActivity
 import br.com.diasdeseries.R
 import br.com.diasdeseries.data.db.dao.FavoriteSeriesDAO
 import br.com.diasdeseries.data.db.entity.AppDatabase
@@ -30,32 +32,39 @@ import br.com.diasdeseries.viewmodel.FavoriteSeriesViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 
 class DetailSerieFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private lateinit var dataBinding : DetailSerieFragmentBinding
 
-    private val viewModel : DetailSerieViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val seriesTvRepository = SeriesTvRepositoryImpl()
-                return DetailSerieViewModel(seriesTvRepository) as T
-            }
-        }
-    }
+//    private val viewModel : DetailSerieViewModel by viewModels {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                val seriesTvRepository = SeriesTvRepositoryImpl()
+//                return DetailSerieViewModel(seriesTvRepository) as T
+//            }
+//        }
+//    }
 
-    private val favoriteSeriesViewModel : FavoriteSeriesViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val favoriteSeriesDAO : FavoriteSeriesDAO = AppDatabase.getInstance(requireContext()).favoriteSeriesDAO
-                val favoriteSeriesRepository : FavoriteSeriesRepository = FavoriteSeriesRoomDataSource(
-                    favoriteSeriesDAO
-                )
-                return FavoriteSeriesViewModel(favoriteSeriesRepository) as T
-            }
-        }
-    }
+    private val viewModel : DetailSerieViewModel by viewModels<DetailSerieViewModel> { viewModelFactory }
+    private val favoriteSeriesViewModel: FavoriteSeriesViewModel by viewModels<FavoriteSeriesViewModel> { viewModelFactory }
+
+//    private val favoriteSeriesViewModel : FavoriteSeriesViewModel by viewModels {
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                val favoriteSeriesDAO : FavoriteSeriesDAO = AppDatabase.getInstance(requireContext()).favoriteSeriesDAO
+//                val favoriteSeriesRepository : FavoriteSeriesRepository = FavoriteSeriesRoomDataSource(
+//                    favoriteSeriesDAO
+//                )
+//                return FavoriteSeriesViewModel(favoriteSeriesRepository) as T
+//            }
+//        }
+//    }
 
     private val args: DetailSerieFragmentArgs by navArgs()
 
@@ -72,6 +81,12 @@ class DetailSerieFragment : Fragment() {
                 findNavController().navigateWithAnimations(direct)
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity() as MainActivity).mainComponent.inject(fragment = this)
     }
 
     override fun onCreateView(

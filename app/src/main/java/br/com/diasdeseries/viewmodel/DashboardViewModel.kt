@@ -11,8 +11,9 @@ import br.com.diasdeseries.data.pojo.SerieNowData
 import br.com.diasdeseries.repository.SeriesTvRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class DashboardViewModel(
+class DashboardViewModel @Inject constructor(
     private val seriesTvRepository: SeriesTvRepository
 ) : ViewModel() {
 

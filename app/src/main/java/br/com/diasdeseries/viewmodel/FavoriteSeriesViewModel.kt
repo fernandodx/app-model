@@ -10,8 +10,9 @@ import br.com.diasdeseries.data.db.entity.FavoriteSeriesEntity
 import br.com.diasdeseries.repository.FavoriteSeriesRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class FavoriteSeriesViewModel(
+class FavoriteSeriesViewModel @Inject constructor(
     private val repository: FavoriteSeriesRepository
 ) : ViewModel() {
 

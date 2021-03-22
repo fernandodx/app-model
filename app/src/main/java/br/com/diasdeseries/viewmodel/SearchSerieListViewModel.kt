@@ -9,8 +9,9 @@ import br.com.diasdeseries.R
 import br.com.diasdeseries.data.pojo.SerieData
 import br.com.diasdeseries.repository.SeriesTvRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchSerieListViewModel(
+class SearchSerieListViewModel @Inject constructor(
     private val repository : SeriesTvRepository
 ) : ViewModel() {
 

@@ -2,8 +2,9 @@ package br.com.diasdeseries.repository
 
 import br.com.diasdeseries.data.db.dao.FavoriteSeriesDAO
 import br.com.diasdeseries.data.db.entity.FavoriteSeriesEntity
+import javax.inject.Inject
 
-class FavoriteSeriesRoomDataSource(
+class FavoriteSeriesRoomDataSource @Inject constructor(
     private val favoriteSeriesDAO: FavoriteSeriesDAO
 ) : FavoriteSeriesRepository {
 

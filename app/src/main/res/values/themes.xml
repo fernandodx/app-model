@@ -14,7 +14,6 @@
         <!-- Customize your theme here. -->
 
         <item name="toolbarStyle">@style/ToolbarStyle</item>
-
     </style>
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">

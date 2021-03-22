@@ -12,8 +12,9 @@ import br.com.diasdeseries.R
 import br.com.diasdeseries.data.db.entity.FavoriteSeriesEntity
 import br.com.diasdeseries.data.pojo.EpisodesSerieData
 import br.com.diasdeseries.repository.FavoriteSeriesRepository
+import javax.inject.Inject
 
-class DetailSerieViewModel(
+class DetailSerieViewModel @Inject constructor(
     private val seriesTvRepository: SeriesTvRepository,
 ) : ViewModel() {
 

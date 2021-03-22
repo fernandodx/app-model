@@ -57,6 +57,8 @@ dependencies {
 
     def nav_version = "2.3.3"
     def room_version = "2.2.6"
+    def dagger_version = "2.27"
+    def retrofit_version = "2.9.0"
 
     // Navigation Component
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -69,11 +71,16 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-jackson:2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
 
 
     testImplementation 'junit:junit:4.+'

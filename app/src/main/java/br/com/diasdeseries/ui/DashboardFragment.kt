@@ -1,54 +1,34 @@
 package br.com.diasdeseries.ui
 
-import android.opengl.Visibility
+import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.diasdeseries.MainActivity
 import br.com.diasdeseries.R
-import br.com.diasdeseries.data.db.dao.FavoriteSeriesDAO
-import br.com.diasdeseries.data.db.entity.AppDatabase
-import br.com.diasdeseries.data.pojo.SerieNowData
 import br.com.diasdeseries.databinding.DashboardFragmentBinding
 import br.com.diasdeseries.extensions.navigateWithAnimations
-import br.com.diasdeseries.viewmodel.DashboardViewModel
-import br.com.diasdeseries.viewmodel.FavoriteSeriesViewModel
-import br.com.diasdeseries.repository.FavoriteSeriesRepository
-import br.com.diasdeseries.repository.FavoriteSeriesRoomDataSource
-import br.com.diasdeseries.repository.SeriesTvRepository
-import br.com.diasdeseries.repository.SeriesTvRepositoryImpl
 import br.com.diasdeseries.ui.adapter.FavoriteSerieAdapter
 import br.com.diasdeseries.ui.adapter.SeriesAdapter
+import br.com.diasdeseries.viewmodel.DashboardViewModel
+import br.com.diasdeseries.viewmodel.FavoriteSeriesViewModel
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class DashboardFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private lateinit var dataBinding : DashboardFragmentBinding
 
-    private val viewModel : DashboardViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val seriesTvRepository : SeriesTvRepository = SeriesTvRepositoryImpl()
-                return DashboardViewModel(seriesTvRepository) as T
-            }
-        }
-    }
-
-    private val favoriteSeriesViewModel : FavoriteSeriesViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val favoriteSeriesDAO : FavoriteSeriesDAO = AppDatabase.getInstance(requireContext()).favoriteSeriesDAO
-                val favoriteSeriesRepository : FavoriteSeriesRepository = FavoriteSeriesRoomDataSource(favoriteSeriesDAO)
-                return FavoriteSeriesViewModel(favoriteSeriesRepository) as T
-            }
-        }
-    }
+    private val viewModel: DashboardViewModel by viewModels<DashboardViewModel> { viewModelFactory }
+    private val favoriteSeriesViewModel: FavoriteSeriesViewModel by viewModels<FavoriteSeriesViewModel> { viewModelFactory }
 
     val seriesAdapter by lazy {
         SeriesAdapter { serieNowClick ->
@@ -64,6 +44,12 @@ class DashboardFragment : Fragment() {
                 detailSerie(it)
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity() as MainActivity).mainComponent.inject(fragment = this)
     }
 
     override fun onCreateView(

@@ -1,5 +1,6 @@
 package br.com.diasdeseries.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,25 +13,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.diasdeseries.MainActivity
 import br.com.diasdeseries.R
 import br.com.diasdeseries.databinding.DetailListEpisodesSeasonBinding
 import br.com.diasdeseries.repository.SeriesTvRepositoryImpl
 import br.com.diasdeseries.ui.adapter.EpisodeAdapter
 import br.com.diasdeseries.viewmodel.DetailSerieViewModel
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class ListEpisodesFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private lateinit var dataBinding : DetailListEpisodesSeasonBinding
 
-    private val viewModel : DetailSerieViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val seriesTvRepository = SeriesTvRepositoryImpl()
-                return DetailSerieViewModel(seriesTvRepository) as T
-            }
-        }
-    }
+    private val viewModel: DetailSerieViewModel by viewModels<DetailSerieViewModel> { viewModelFactory }
 
     val episodeAdapter by lazy {
         EpisodeAdapter()
@@ -38,6 +37,11 @@ class ListEpisodesFragment : Fragment() {
 
     val args : ListEpisodesFragmentArgs by navArgs()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity() as MainActivity).mainComponent.inject(fragment = this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

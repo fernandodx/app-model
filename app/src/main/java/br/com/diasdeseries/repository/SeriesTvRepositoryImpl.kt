@@ -1,9 +1,11 @@
 package br.com.diasdeseries.repository
 
+import android.content.Context
 import br.com.diasdeseries.data.network.RetrofitUtil
 import br.com.diasdeseries.data.pojo.*
+import javax.inject.Inject
 
-class SeriesTvRepositoryImpl : SeriesTvRepository {
+class SeriesTvRepositoryImpl @Inject constructor(context: Context) : SeriesTvRepository {
 
     override suspend fun findSeriesWithName(name: String): List<SerieData> {
         return RetrofitUtil.getSeriesServices().findSeries(nameSerie = name)

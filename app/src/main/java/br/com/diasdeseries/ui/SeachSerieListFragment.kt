@@ -1,5 +1,6 @@
 package br.com.diasdeseries.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.diasdeseries.MainActivity
 import br.com.diasdeseries.R
 import br.com.diasdeseries.databinding.SearchListSerieBinding
 import br.com.diasdeseries.extensions.hideKeyboard
@@ -28,19 +30,16 @@ import br.com.diasdeseries.repository.SeriesTvRepositoryImpl
 import br.com.diasdeseries.ui.adapter.SearchSerieAdapter
 import br.com.diasdeseries.viewmodel.SearchSerieListViewModel
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class SeachSerieListFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private lateinit var dataBinding : SearchListSerieBinding
 
-    private val viewModel : SearchSerieListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val seriesTvRepository : SeriesTvRepository = SeriesTvRepositoryImpl()
-                return SearchSerieListViewModel(seriesTvRepository) as T
-            }
-        }
-    }
+    private val  viewModel : SearchSerieListViewModel by viewModels<SearchSerieListViewModel> { viewModelFactory }
 
     val seachSerieAdapter : SearchSerieAdapter by lazy {
         SearchSerieAdapter { serieClick ->
@@ -50,6 +49,13 @@ class SeachSerieListFragment : Fragment() {
             }
         }
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity() as MainActivity).mainComponent.inject(fragment = this)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

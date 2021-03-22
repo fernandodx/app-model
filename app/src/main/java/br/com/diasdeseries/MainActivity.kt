@@ -9,14 +9,18 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import br.com.diasdeseries.databinding.ActivityMainBinding
+import br.com.diasdeseries.ui.MainComponent
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var mainComponent: MainComponent
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainComponent = (applicationContext as DiasdeSeriesApplication).appComponent.mainComponent().create()
 
         val dataBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
