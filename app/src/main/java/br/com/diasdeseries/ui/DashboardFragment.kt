@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.diasdeseries.MainActivity
 import br.com.diasdeseries.R
+import br.com.diasdeseries.data.pojo.MarketingBanner
 import br.com.diasdeseries.databinding.DashboardFragmentBinding
 import br.com.diasdeseries.extensions.navigateWithAnimations
+import br.com.diasdeseries.ui.adapter.BannerAdapter
 import br.com.diasdeseries.ui.adapter.FavoriteSerieAdapter
 import br.com.diasdeseries.ui.adapter.SeriesAdapter
 import br.com.diasdeseries.viewmodel.DashboardViewModel
@@ -82,7 +85,7 @@ class DashboardFragment : Fragment() {
             if(result.isSuccess){
                 val listSeries = result.getOrNull()
                 listSeries?.let {
-                    seriesAdapter.updateSeries(listSeries)
+                    seriesAdapter.submitList(listSeries)
                 }
             }
         }
@@ -113,10 +116,20 @@ class DashboardFragment : Fragment() {
 
     private fun listeners() {
 
+        val listMarkting = listOf<MarketingBanner>(
+            MarketingBanner(
+                image = "https://s2.glbimg.com/mYgwlPa7vtIiUk6kROUxJUi2yyo=/0x0:620x413/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_cf9d035bf26b4646b105bd958f32089d/internal_photos/bs/2020/a/4/Ik8J1fQYirf6wYRvRJ8Q/2020-03-20-novo-tracker-1.jpg",
+                title = "Propaganda"),
+        )
+
+        val bannerAdapter = BannerAdapter().apply {
+            submitList(listMarkting)
+        }
+
         dataBinding.listSeriesNowRecyclerview.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = seriesAdapter
+            adapter = ConcatAdapter(bannerAdapter, seriesAdapter)
         }
 
         dataBinding.listFavoriteSeriesRecyclerview.run {
